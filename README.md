@@ -9,6 +9,8 @@ and gives you a normal `Graveyard Keeper 2.app` in `~/Applications`.
 > Unofficial fan wrapper. Not affiliated with Lazy Bear Games or tinyBuild.
 > **You need to own the game on Steam.** This repo contains no game files.
 
+**Tested on:** Apple Silicon (arm64), macOS 27, Game Porting Toolkit 3.0-3, GK2 depot manifest `8550693869351246529`.
+
 ## Requirements
 
 - Apple Silicon Mac, macOS 14 (Sonoma) or newer
@@ -18,7 +20,7 @@ and gives you a normal `Graveyard Keeper 2.app` in `~/Applications`.
 ## Install
 
 ```sh
-git clone https://github.com/<you>/gravemac-keeper-2 && cd gravemac-keeper-2
+git clone https://github.com/ignasave/gravemac-keeper-2 && cd gravemac-keeper-2
 ./gk2.sh setup
 ```
 
