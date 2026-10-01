@@ -11,6 +11,9 @@ and gives you a normal `Graveyard Keeper 2.app` in `~/Applications`.
 
 **Tested on:** Apple Silicon (arm64), macOS 27, Game Porting Toolkit 3.0-3, GK2 depot manifest `8550693869351246529`.
 
+**Community reports:**
+- MacBook Pro M4 Pro: full evening of play, works perfectly, PS5 DualSense over USB works
+
 ## Requirements
 
 - Apple Silicon Mac, macOS 14 (Sonoma) or newer
@@ -46,9 +49,40 @@ The game runs without a Steam connection, so cloud saves don't sync automaticall
 3. Put them in
    `~/Games/gk2-prefix/drive_c/users/crossover/AppData/LocalLow/Lazy Bear Games/Graveyard Keeper 2/`
 
-Saves made on the Mac stay on the Mac. To get cloud sync/achievements, install
-Windows Steam in the prefix (`./gk2.sh steam-setup`, then `./gk2.sh steam` to log in).
-`run` starts it in the background if present. This path is experimental.
+Imported cloud saves load fine with **Continue**. Saves made on the Mac stay on the Mac
+unless you set up Windows Steam (see below).
+
+## Mods
+
+The game loads mods from disk, no Steam needed:
+
+```
+~/Games/gk2-prefix/drive_c/users/crossover/AppData/LocalLow/Lazy Bear Games/Graveyard Keeper 2/Mods/
+```
+
+- Drop a mod folder there and press **Shift+F10** in-game to reload
+- Prefix a folder name with `~` to disable it
+- Currently the only category is `Languages/` (translations)
+
+**Workshop items** without Windows Steam: in the Mac Steam console run
+`workshop_download_item 4358690 <id>` (the id is the number at the end of the Workshop URL),
+then copy `steamapps/workshop/content/4358690/<id>` from your Mac Steam folder into `Mods/`.
+
+## Pre-order bonus, cloud sync, achievements (experimental)
+
+These come from Steam itself, not from files. Out of the box the game can't reach Steam,
+so `Player.log` (next to `Mods/`) shows `SteamAPI_Init() failed` and `[Preorder]: False`.
+
+To try fixing that, run a Windows Steam inside the prefix:
+
+```sh
+./gk2.sh steam-setup   # one time, installs Windows Steam in the prefix
+./gk2.sh steam         # log in once; it remembers you
+```
+
+After that, the app starts this Steam in the background before the game. If it works,
+`[Preorder]` should flip to `True` and Workshop/cloud/achievements come with it.
+**Unconfirmed:** the Windows Steam window may render black under Wine. Reports welcome.
 
 ## Commands
 
@@ -66,7 +100,8 @@ Use a different prefix with `GK2_PREFIX=/path ./gk2.sh …`.
 
 - Intel Macs: untested (GPTK targets Apple Silicon)
 - Windows Steam window may render black under Wine
-- Controllers: untested
+- Controllers: PS5 DualSense over USB works (community report); Bluetooth and others untested
+- Pre-order bonus / Steam features need the experimental Windows Steam setup above
 
 ## Uninstall
 
