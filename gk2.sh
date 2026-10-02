@@ -14,9 +14,12 @@ DEPOT_DIR="$HOME/Library/Application Support/Steam/Steam.AppBundle/Steam/Content
 STEAM='C:\Program Files (x86)\Steam\steam.exe'
 APP="$HOME/Applications/Graveyard Keeper 2.app"
 
+# Wine is x86_64; macOS updates can remove Rosetta ("bad CPU type in executable")
+rosetta() { arch -x86_64 /usr/bin/true 2>/dev/null || softwareupdate --install-rosetta --agree-to-license; }
+
 case "${1:-run}" in
   setup)
-    /usr/bin/pgrep -q oahd || softwareupdate --install-rosetta --agree-to-license
+    rosetta
     brew trust gcenx/wine 2>/dev/null || true   # only on newer Homebrew
     brew install --cask gcenx/wine/game-porting-toolkit
     mkdir -p "$WINEPREFIX"
@@ -36,6 +39,7 @@ case "${1:-run}" in
     ;;
   run)
     [[ -f "$GAME/GraveyardKeeper2.exe" ]] || { echo "Game not imported, see: $0 import" >&2; exit 1; }
+    rosetta
     # optional Windows Steam (cloud saves/achievements); game runs without it
     if [[ -f "$WINEPREFIX/drive_c/Program Files (x86)/Steam/steam.exe" ]] && ! pgrep -qf 'Steam\\steam.exe'; then
       "$WINE" "$STEAM" -cef-disable-gpu-compositing -silent & sleep 15

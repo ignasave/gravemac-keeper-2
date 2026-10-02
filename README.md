@@ -96,6 +96,14 @@ After that, the app starts this Steam in the background before the game. If it w
 
 Use a different prefix with `GK2_PREFIX=/path ./gk2.sh …`.
 
+## Troubleshooting
+
+- **`bad CPU type in executable`** after a macOS update: the update removed Rosetta 2.
+  The launcher now reinstalls it automatically; or run `softwareupdate --install-rosetta --agree-to-license`.
+- **Crashes**: check `Crashes/` under `~/Games/gk2-prefix/drive_c/users/crossover/Temp/Lazy Bear Games/Graveyard Keeper 2/`.
+  First make sure you're on the latest game version (repeat the update steps above). Version 1.007
+  crashed repeatedly when a mine zombie walked in/out of the mine; that's a game bug, not the wrapper.
+
 ## Known issues / untested
 
 - Intel Macs: untested (GPTK targets Apple Silicon)
